@@ -5,8 +5,7 @@ var items = [
     name: "iPhone 4S",
     brand: "Apple",
     os: "iOS",
-  },
-  {
+  },{
     id: "101",
     name: "Moto X",
     brand: "Motorola",
@@ -46,9 +45,7 @@ $(document).ready(function () {
   displayPage(items);
   displayTable();
   $("body").on("click", "#submit", function () {
-    console.log("Cicked to Search");
     var searchItem = $("#search").val();
-    console.log(searchItem);
     searchItemFunction(searchItem, items);
   });
 
@@ -57,12 +54,8 @@ $(document).ready(function () {
   });
 
   $("body").on("click", "#osDrop", function(){
-    console.log("Clicked on Os dropdown");
-    console.log("filBrandVal value is "+filterBrandVal);
     var filOs=$("#osDrop").find('option:selected').val();
-    //var filOs=$(this).data("os");
     if(filOs!="All"){
-      console.log("Os filter value is not all");
       filterOsVal=filOs;
       filter_p(filterOsVal,filterBrandVal,items);
     }else{
@@ -72,12 +65,8 @@ $(document).ready(function () {
   });
 
   $("body").on("click", "#brandDrop", function(){
-    console.log("Clicked on Brand dropdown");
-    console.log("filOs value is "+filterOsVal);
-    //var filBrand= $(this).data("brand");
     var filBrand=$("#brandDrop").find('option:selected').val();
     if(filBrand!="All"){
-      console.log("Brand filter value is not all")
         filterBrandVal=filBrand;
         filter_p(filterOsVal,filterBrandVal,items);
     }else{
@@ -94,30 +83,24 @@ function filteritems(filterOsVal,filterBrandVal,items){
 var error=0;
 for(i=0;i<items.length;i++){
   if(filterOsVal==items[i].os && filterBrandVal==0){
-    console.log("Os matched");
     filterArray.push(items[i]);
   }
 }
 for(i=0;i<items.length;i++){
   if(filterBrandVal==items[i].brand && filterOsVal==0){
-    console.log("Brand matched");
     filterArray.push(items[i]);
   }
 }
 
 for(i=0;i<items.length;i++){
   if(filterBrandVal!=0 && filterOsVal!=0){
-    console.log("You have entered the mix filter");
     if(filterBrandVal==items[i].brand && filterOsVal==items[i].os){
-      console.log("Mix filtered match");
       filterArray.push(items[i]);
     }else{
-      console.log("No mix item found");
       displayError();
     }
   }
 }
-console.log("filtered array is "+ filterArray);
 displayFilter(filterArray);
 }
 
@@ -155,24 +138,19 @@ function displayFilter(filterArray){
   $("#content").html(filterItem);
   style();
   filterArray.splice(0, filterArray.length);
-  console.log(filterArray)
 }
 
 
 function searchItemFunction(searchItem, items) {
-  console.log(items);
   if (searchItem.length===0){
     displayTable();
   }else for (i = 0; i < items.length; i++) {
     if (searchItem == items[i].id || searchItem === items[i].name){
-      console.log("Item found");
       filter.push(items[i]);
-      console.log(filter);
       displaySearch(filter);
       break;
   }else{
         displayError();
-        console.log("404 Item not found");
     }
   }
 }
@@ -182,8 +160,6 @@ $("#content").html("Error 404");
 }
 
 function displaySearch(filter) {
-  console.log("Displaying searched item");
-  console.log("Array to show is " + filter);
   var search = "";
   search =
     "<table>\
@@ -214,7 +190,6 @@ function displaySearch(filter) {
                 </tr>";
   }
   search += "</table>";
-  console.log(search);
   $("#content").html(search);
   style();
   filter.splice(0, filter.length);
